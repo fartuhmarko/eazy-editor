@@ -23,8 +23,8 @@ line2 = QVBoxLayout()
 image = QLabel("image")
 
 button_line = QHBoxLayout()
-btn1 = QPushButton("1")
-btn2 = QPushButton("2")
+btn1 = QPushButton("B/W")
+btn2 = QPushButton("Left")
 btn3 = QPushButton("3")
 btn4 = QPushButton("4")
 btn5 = QPushButton("5")
@@ -64,15 +64,19 @@ def showFolder():
 
 btn_folder.clicked.connect(showFolder)
 
-workImage = ImageProcessor()
+workImage = ImageProcessor(image)
 
 def showChosenItem():
     filename = list_widget.currentItem().text()
     workImage.loadImage(filename, workdir)
-    workImage.showImage(os.path.join(workdir,filename), image)
+    workImage.showImage(os.path.join(workdir,filename))
 
 list_widget.currentRowChanged.connect(showChosenItem)
 
+btn1.clicked.connect(workImage.do_bw)
+btn2.clicked.connect(workImage.left)
+btn3.clicked.connect(workImage.mirror)
+btn4.clicked.connect(workImage.blur)
 
 window.show()
 app.exec_()
